@@ -12,16 +12,18 @@ inputEl.addEventListener('input', e => {
   const zip = JSON.stringify(formData);
   localStorage.setItem('feedback-form-state', zip);
 });
+
 const parseData = JSON.parse(localStorage.getItem('feedback-form-state'));
+
 if (parseData !== '') {
-  inputEl.elements.email.value = parseData.email;
-  inputEl.elements.message.value = parseData.message;
+  inputEl.elements.email.value = parseData?.email || ``;
+  inputEl.elements.message.value = parseData?.message || ``;
   formData.email = inputEl.elements.email.value;
   formData.message = inputEl.elements.message.value;
 }
 inputEl.addEventListener('submit', e => {
   e.preventDefault();
-  if (formData.email.value || formData.message.value) {
+  if (formData.email === '' || formData.message === '') {
     alert('Fill please all fields');
     return;
   } else {
